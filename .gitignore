@@ -1,0 +1,50 @@
+# OS Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Archive Files (keep track of important ones, but optional)
+# *.zip
+# *.tar.gz
+# *.rar
+
+# IDE/Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Large binary files (optional - comment out if you want these in repo)
+# *.img
+# *.iso
+
+# Temporary files
+*.tmp
+*.bak
+.temp/
+
+# Node modules (if applicable)
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
+
+# Keep important files
+!.gitkeep

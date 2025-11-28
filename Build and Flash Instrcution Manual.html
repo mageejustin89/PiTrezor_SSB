@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiTrezor - User Manual & Operating Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .highlight {
+            background-color: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        table th {
+            background-color: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .step-box {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .step-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .grid-item {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .grid-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .toc {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .spec-box {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .spec-box strong {
+            color: #667eea;
+        }
+        
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+        
+        .checkmark {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .xmark {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .specs {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 PiTrezor Hardware Wallet</h1>
+            <p>User Manual & Operating Guide</p>
+        </header>
+        
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Project Overview</a></li>
+                    <li><a href="#requirements">Hardware Requirements</a></li>
+                    <li><a href="#quick-start">Quick Start Guide</a></li>
+                    <li><a href="#installation">Installation Methods</a></li>
+                    <li><a href="#wiring">Display Wiring Guide</a></li>
+                    <li><a href="#configuration">Configuration & Setup</a></li>
+                    <li><a href="#testing">Testing & Verification</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#support">Support & Resources</a></li>
+                </ul>
+            </div>
+            
+            <!-- Overview Section -->
+            <div class="section" id="overview">
+                <h2>📦 Project Overview</h2>
+                
+                <p>This project provides a complete solution for integrating ILI9341 color SPI displays with PiTrezor hardware wallets. It combines modern PiTrezor firmware with proven display drivers using an innovative "Reverse Firmware Transplant" approach.</p>
+                
+                <div class="highlight">
+                    <strong>What This Package Includes:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Pre-built Image:</strong> Ready-to-flash SD card image with everything configured</li>
+                        <li><strong>Source Code:</strong> Build scripts and diagnostic tools</li>
+                        <li><strong>Configuration Files:</strong> All necessary setup and installation files</li>
+                        <li><strong>Documentation:</strong> Complete technical details and troubleshooting guides</li>
+                    </ul>
+                </div>
+                
+                <h3>Key Features</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>✅ Modern Firmware</h4>
+                        <p>Latest PiTrezor firmware compatible with Trezor Suite</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>✅ Working Display</h4>
+                        <p>ILI9341 color display with proven drivers</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>✅ Universal Support</h4>
+                        <p>Full cryptocurrency support (not Bitcoin-only)</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>✅ Easy Setup</h4>
+                        <p>Automated first-boot configuration</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Hardware Requirements -->
+            <div class="section" id="requirements">
+                <h2>🔧 Hardware Requirements</h2>
+                
+                <h3>Raspberry Pi Zero W</h3>
+                <div class="specs">
+                    <div class="spec-box">
+                        <strong>Processor:</strong> BCM2835 ARM11 (1GHz single-core)<br>
+                        <strong>RAM:</strong> 512 MB<br>
+                        <strong>Storage:</strong> microSD card (8GB minimum recommended)
+                    </div>
+                    <div class="spec-box">
+                        <strong>WiFi:</strong> 802.11 b/g/n (required for Trezor Suite)<br>
+                        <strong>GPIO:</strong> 40-pin standard layout<br>
+                        <strong>Power:</strong> 5V USB power (display increases consumption)
+                    </div>
+                </div>
+                
+                <h3>ILI9341 Display Module</h3>
+                <div class="specs">
+                    <div class="spec-box">
+                        <strong>Controller:</strong> ILI9341 (ILI9486 also supported)<br>
+                        <strong>Resolution:</strong> 240×320 pixels<br>
+                        <strong>Interface:</strong> SPI (Serial Peripheral Interface)
+                    </div>
+                    <div class="spec-box">
+                        <strong>Supply Voltage:</strong> 3.3V logic & power<br>
+                        <strong>Backlight:</strong> GPIO-controlled LED<br>
+                        <strong>Connector:</strong> Single-row pin header or jumper wires
+                    </div>
+                </div>
+                
+                <h3>Additional Components</h3>
+                <ul>
+                    <li><strong>Jumper Wires:</strong> Female-to-female dupont wires (at least 10)</li>
+                    <li><strong>SD Card Reader:</strong> USB microSD card reader for flashing image</li>
+                    <li><strong>Power Supply:</strong> 5V 2A minimum (2.5A recommended with display)</li>
+                    <li><strong>Computer:</strong> Windows, Mac, or Linux for image flashing</li>
+                </ul>
+                
+                <h3>Supported Display Types</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Display Type</th>
+                            <th>Resolution</th>
+                            <th>Performance</th>
+                            <th>Notes</th>
+                        </tr>
+                        <tr>
+                            <td>ILI9341</td>
+                            <td>240×320</td>
+                            <td>Excellent</td>
+                            <td>Most common, recommended choice</td>
+                        </tr>
+                        <tr>
+                            <td>ILI9486</td>
+                            <td>320×480</td>
+                            <td>Good</td>
+                            <td>Larger display, slightly slower SPI</td>
+                        </tr>
+                        <tr>
+                            <td>Adafruit PiTFT</td>
+                            <td>320×240</td>
+                            <td>Excellent</td>
+                            <td>Plug-and-play with GPIO buttons</td>
+                        </tr>
+                        <tr>
+                            <td>WaveShare 35B</td>
+                            <td>320×480</td>
+                            <td>Good</td>
+                            <td>With touch support</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Quick Start -->
+            <div class="section" id="quick-start">
+                <h2>🚀 Quick Start Guide</h2>
+                
+                <div class="highlight">
+                    <strong>Estimated Time:</strong> 15-20 minutes<br>
+                    <strong>Difficulty:</strong> Beginner-friendly<br>
+                    <strong>Result:</strong> Fully working PiTrezor with display
+                </div>
+                
+                <h3>Step 1: Prepare SD Card</h3>
+                <div class="step-box">
+                    <h4>Using Raspberry Pi Imager (Recommended)</h4>
+                    <ol>
+                        <li>Download and install <a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a></li>
+                        <li>Insert microSD card into card reader</li>
+                        <li>Open Raspberry Pi Imager and select "Use custom image"</li>
+                        <li>Choose <code>pitrezor-raspberrypi0-wifi-universal.img</code></li>
+                        <li>Select your microSD card as the destination</li>
+                        <li>Click "Write" and wait for completion (5-10 minutes)</li>
+                    </ol>
+                </div>
+                
+                <h3>Step 2: Connect Display</h3>
+                <div class="step-box">
+                    <h4>Before Power-on</h4>
+                    <ol>
+                        <li>Ensure Pi Zero W is powered off (not connected)</li>
+                        <li>Connect display jumper wires following the <a href="#wiring">wiring diagram</a></li>
+                        <li>Verify all connections twice (especially 3.3V power)</li>
+                        <li>Double-check that no wires are reversed</li>
+                    </ol>
+                </div>
+                
+                <h3>Step 3: Boot & Configure</h3>
+                <div class="step-box">
+                    <h4>Initial Boot Process</h4>
+                    <ol>
+                        <li>Insert prepared SD card into Pi Zero W</li>
+                        <li>Connect 5V power supply to USB power port</li>
+                        <li>Green LED will blink (normal operation)</li>
+                        <li>First boot will take 2-5 minutes (builds display driver)</li>
+                        <li>Display should show PiTrezor boot sequence</li>
+                        <li>Wait for system to fully boot (you'll hear startup sounds)</li>
+                    </ol>
+                </div>
+                
+                <div class="success">
+                    <strong>✅ Success!</strong> Your PiTrezor is now ready to use with the ILI9341 display working.
+                </div>
+            </div>
+            
+            <!-- Installation Methods -->
+            <div class="section" id="installation">
+                <h2>💾 Installation Methods</h2>
+                
+                <h3>Method 1: Flash Pre-built Image (Recommended)</h3>
+                <p>This is the easiest and fastest method. The image includes everything pre-configured.</p>
+                
+                <h4>Windows</h4>
+                <ol>
+                    <li>Download <strong>Balena Etcher</strong> or <strong>Raspberry Pi Imager</strong></li>
+                    <li>Insert microSD card into USB reader</li>
+                    <li>Open Etcher/Imager and select the <code>.img</code> file</li>
+                    <li>Select microSD card as target</li>
+                    <li>Click "Flash" and wait for completion</li>
+                </ol>
+                
+                <h4>Mac</h4>
+                <ol>
+                    <li>Download <strong>Raspberry Pi Imager</strong> or <strong>Balena Etcher</strong></li>
+                    <li>Insert microSD card</li>
+                    <li>Open the imager application</li>
+                    <li>Select custom image: <code>pitrezor-raspberrypi0-wifi-universal.img</code></li>
+                    <li>Select microSD card and click "Write"</li>
+                </ol>
+                
+                <h4>Linux</h4>
+                <pre>
+# Insert SD card and identify it (usually /dev/sdb or /dev/sdc)
+lsblk
+
+# Flash the image (replace sdX with your card)
+sudo dd if=pitrezor-raspberrypi0-wifi-universal.img of=/dev/sdX bs=4M conv=fsync
+sync
+
+# Eject the card
+sudo eject /dev/sdX
+                </pre>
+                
+                <div class="warning">
+                    <strong>⚠️ Warning:</strong> Using <code>dd</code> will overwrite your disk if the wrong device is selected. Triple-check the device name before running the command.
+                </div>
+                
+                <h3>Method 2: Manual Installation</h3>
+                <p>Use this method if you want to set up the system manually or customize components.</p>
+                
+                <ol>
+                    <li>Extract <code>source-files.zip</code> to a folder</li>
+                    <li>Extract <code>source-code.zip</code> to a separate folder</li>
+                    <li>Flash a standard Raspberry Pi OS image to SD card</li>
+                    <li>Follow the README in <code>source-files/</code> for step-by-step installation</li>
+                    <li>Use build scripts from <code>source-code/</code> to compile drivers</li>
+                    <li>Configure display settings in <code>pitrezor.config</code></li>
+                    <li>Run startup scripts and test</li>
+                </ol>
+                
+                <div class="highlight">
+                    <strong>Note:</strong> Method 2 is more complex and takes 1-2 hours. Only recommended for advanced users or customization needs.
+                </div>
+            </div>
+            
+            <!-- Wiring Guide -->
+            <div class="section" id="wiring">
+                <h2>🔌 Display Wiring Guide</h2>
+                
+                <h3>GPIO Pin Assignments</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Display Pin</th>
+                            <th>Pi Zero GPIO</th>
+                            <th>Pin #</th>
+                            <th>Description</th>
+                            <th>Color (Typical)</th>
+                        </tr>
+                        <tr>
+                            <td>VCC</td>
+                            <td>3.3V Power</td>
+                            <td>1 or 17</td>
+                            <td>Power supply (CRITICAL)</td>
+                            <td>Red</td>
+                        </tr>
+                        <tr>
+                            <td>GND</td>
+                            <td>Ground</td>
+                            <td>6, 9, or 14</td>
+                            <td>Ground connection</td>
+                            <td>Black</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>GPIO 8 (CE0)</td>
+                            <td>24</td>
+                            <td>SPI Chip Select</td>
+                            <td>Orange</td>
+                        </tr>
+                        <tr>
+                            <td>RESET</td>
+                            <td>GPIO 25</td>
+                            <td>22</td>
+                            <td>Display reset control</td>
+                            <td>Yellow</td>
+                        </tr>
+                        <tr>
+                            <td>DC</td>
+                            <td>GPIO 24</td>
+                            <td>18</td>
+                            <td>Data/Command select</td>
+                            <td>Green</td>
+                        </tr>
+                        <tr>
+                            <td>SDI/MOSI</td>
+                            <td>GPIO 10</td>
+                            <td>19</td>
+                            <td>SPI data input</td>
+                            <td>Blue</td>
+                        </tr>
+                        <tr>
+                            <td>SCK</td>
+                            <td>GPIO 11</td>
+                            <td>23</td>
+                            <td>SPI clock</td>
+                            <td>Purple</td>
+                        </tr>
+                        <tr>
+                            <td>LED</td>
+                            <td>GPIO 18</td>
+                            <td>12</td>
+                            <td>Backlight control</td>
+                            <td>White</td>
+                        </tr>
+                        <tr>
+                            <td>YES Button</td>
+                            <td>GPIO 20</td>
+                            <td>38</td>
+                            <td>Confirm/OK button</td>
+                            <td>Gray</td>
+                        </tr>
+                        <tr>
+                            <td>NO Button</td>
+                            <td>GPIO 13</td>
+                            <td>33</td>
+                            <td>Cancel/Back button</td>
+                            <td>Brown</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>Wiring Instructions</h3>
+                <div class="step-box">
+                    <h4>Connection Steps</h4>
+                    <ol>
+                        <li><strong>Power First:</strong> Connect 3.3V (VCC) from Pi to display
+                            <div class="warning" style="margin-top: 10px; margin-bottom: 0;">
+                                <strong>CRITICAL:</strong> Must be 3.3V, NOT 5V. 5V will damage the display!
+                            </div>
+                        </li>
+                        <li><strong>Ground:</strong> Connect GND to display GND (multiple points available)</li>
+                        <li><strong>SPI Pins:</strong> Connect CS, SDI/MOSI, and SCK (data communication)</li>
+                        <li><strong>Control Pins:</strong> Connect RESET and DC (display control)</li>
+                        <li><strong>Backlight:</strong> Connect LED to GPIO 18 (brightness control)</li>
+                        <li><strong>Buttons:</strong> Connect YES and NO buttons if display module includes them</li>
+                        <li><strong>Verify:</strong> Check each connection twice before powering on</li>
+                    </ol>
+                </div>
+                
+                <h3>Visual Reference</h3>
+                <div class="highlight">
+                    <strong>Raspberry Pi Zero W GPIO Header:</strong>
+                    <pre>
+     ┌─────────────────────────────────────┐
+     │ Pi Zero W - 40 Pin GPIO Header     │
+     ├─────────────────────────────────────┤
+   3.3V →│ 1  ●●  2 ← 5V
+   GPIO2 →│ 3  ●●  4 ← 5V
+   GPIO3 →│ 5  ●●  6 ← GND
+   GPIO4 →│ 7  ●●  8 ← GPIO 14 (UART TX)
+    GND  →│ 9  ●●  10← GPIO 15 (UART RX)
+GPIO17  →│ 11 ●●  12← GPIO 18 (LED/Backlight) ✓
+GPIO27  →│ 13 ●●  14← GND
+GPIO22  →│ 15 ●●  16← GPIO 23 (SCK) ✓
+   3.3V →│ 17 ●●  18← GPIO 24 (DC) ✓
+GPIO10  →│ 19 ●●  20← GND
+GPIO9   →│ 21 ●●  22← GPIO 25 (RESET) ✓
+GPIO11  →│ 23 ●●  24← GPIO 8 (CS) ✓
+    GND →│ 25 ●●  26← GPIO 7
+GPIO0   →│ 27 ●●  28← GPIO 1
+GPIO5   →│ 29 ●●  30← GND
+GPIO6   →│ 31 ●●  32← GPIO 12
+GPIO13  →│ 33 ●●  34← GND (NO Button)
+GPIO19  →│ 35 ●●  36← GPIO 16
+GPIO26  →│ 37 ●●  38← GPIO 20 (YES Button)
+    GND →│ 39 ●●  40← GPIO 21
+     └─────────────────────────────────────┘
+
+Legend:
+✓ = Used for display connection
+     </pre>
+                </div>
+            </div>
+            
+            <!-- Configuration & Setup -->
+            <div class="section" id="configuration">
+                <h2>⚙️ Configuration & Setup</h2>
+                
+                <h3>First Boot Setup</h3>
+                <p>The pre-built image will automatically configure on first boot. You'll see:</p>
+                <ol>
+                    <li><strong>Green LED blinking</strong> - System starting up</li>
+                    <li><strong>Display build process</strong> - fbcp-ili9341 driver compilation (2-5 minutes)</li>
+                    <li><strong>Boot sequence on display</strong> - Shows progress messages</li>
+                    <li><strong>Audio notification</strong> - Startup beep when ready</li>
+                    <li><strong>PiTrezor main screen</strong> - System fully operational</li>
+                </ol>
+                
+                <h3>Configuration File</h3>
+                <p>Advanced settings are in <code>/etc/pitrezor.config</code>. Common options:</p>
+                
+                <pre>
+# Display Type Selection
+DISPLAY_TYPE="ILI9341"      # Options: ILI9341, ILI9486, ADAFRUIT_PITFT
+
+# SPI Speed (higher = more stable)
+FBCP_SPI_SPEED_DIVISOR=20   # Range: 20-60 (20 = faster, 60 = slower/more stable)
+
+# Display Scaling
+TREZOR_OLED_SCALE=1         # Range: 1-16 (zoom level for display)
+
+# Enable Performance Stats Overlay
+FBCP_ENABLE_STATS=0         # 0=off, 1=on (shows FPS and CPU usage)
+
+# Firmware Mode
+FIRMWARE_MODE="universal"   # Options: universal, bitcoin-only
+                </pre>
+                
+                <h3>Network Configuration</h3>
+                <p>PiTrezor connects to WiFi for Trezor Suite compatibility:</p>
+                
+                <ol>
+                    <li>On first boot, press YES to enable WiFi setup</li>
+                    <li>Select your network from the list</li>
+                    <li>Enter WiFi password using the on-screen keyboard</li>
+                    <li>System will connect and show network status</li>
+                    <li>Note the IP address displayed on screen</li>
+                </ol>
+                
+                <h3>Trezor Suite Connection</h3>
+                <p>After WiFi setup, you can connect PiTrezor to Trezor Suite:</p>
+                
+                <ol>
+                    <li>Open Trezor Suite on your computer</li>
+                    <li>Go to "Settings" → "Add Device"</li>
+                    <li>Select "Trezor T (webusb)" or manual IP entry</li>
+                    <li>Enter the IP address shown on PiTrezor display</li>
+                    <li>Choose network port: <code>21325</code> (default)</li>
+                    <li>Click "Connect" and authorize on PiTrezor display</li>
+                </ol>
+            </div>
+            
+            <!-- Testing & Verification -->
+            <div class="section" id="testing">
+                <h2>✅ Testing & Verification</h2>
+                
+                <h3>Display Functionality Test</h3>
+                <div class="step-box">
+                    <h4>Visual Checks</h4>
+                    <ol>
+                        <li><strong>Power LED:</strong> Green LED should blink continuously</li>
+                        <li><strong>Display Backlight:</strong> Should be visibly bright (not dark/off)</li>
+                        <li><strong>Boot Sequence:</strong> Text and graphics should appear on display</li>
+                        <li><strong>Color Quality:</strong> Images should be sharp and colors accurate</li>
+                        <li><strong>No Artifacts:</strong> No horizontal lines, ghosting, or corruption</li>
+                    </ol>
+                </div>
+                
+                <h3>Button Functionality</h3>
+                <div class="step-box">
+                    <h4>Button Tests</h4>
+                    <ol>
+                        <li>Press the <strong>YES button</strong> (GPIO 20) - should show response on screen</li>
+                        <li>Press the <strong>NO button</strong> (GPIO 13) - should show response on screen</li>
+                        <li>Verify buttons are responsive (immediate response)</li>
+                        <li>Test menu navigation with buttons</li>
+                    </ol>
+                </div>
+                
+                <h3>Performance Check</h3>
+                <p>Enable stats overlay to verify performance:</p>
+                <ol>
+                    <li>SSH into Pi Zero: <code>ssh pi@[IP-ADDRESS]</code> (password: raspberry)</li>
+                    <li>Edit config: <code>sudo nano /etc/pitrezor.config</code></li>
+                    <li>Set: <code>FBCP_ENABLE_STATS=1</code></li>
+                    <li>Reboot: <code>sudo reboot</code></li>
+                    <li>Display should show FPS counter and CPU usage</li>
+                    <li>Typical performance: 30-60 FPS, 40-80% CPU usage</li>
+                </ol>
+                
+                <h3>Connectivity Test</h3>
+                <ol>
+                    <li>Connect PiTrezor to your WiFi network</li>
+                    <li>Note the IP address shown on display</li>
+                    <li>From another computer, ping the IP: <code>ping [IP-ADDRESS]</code></li>
+                    <li>Should receive responses (latency 1-10ms typical)</li>
+                    <li>Connect Trezor Suite and perform a transaction test</li>
+                </ol>
+                
+                <div class="success">
+                    <strong>✅ All tests passed?</strong> Your PiTrezor display integration is working perfectly!
+                </div>
+            </div>
+            
+            <!-- Troubleshooting -->
+            <div class="section" id="troubleshooting">
+                <h2>🐛 Troubleshooting Guide</h2>
+                
+                <h3>Display Won't Turn On (Black Screen)</h3>
+                <div class="step-box">
+                    <h4>Possible Causes & Solutions</h4>
+                    <ol>
+                        <li><strong>SPI Not Enabled:</strong>
+                            <ul>
+                                <li>SSH to Pi and edit: <code>sudo nano /boot/config.txt</code></li>
+                                <li>Ensure this line exists: <code>dtparam=spi=on</code></li>
+                                <li>Reboot: <code>sudo reboot</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>3.3V Power Connection:</strong>
+                            <ul>
+                                <li>Check VCC wire is connected to 3.3V pin (pin 1 or 17)</li>
+                                <li>Verify wire is not loose - wiggle gently to test</li>
+                                <li>Measure voltage with multimeter: should be 3.2-3.4V</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wrong Display Type:</strong>
+                            <ul>
+                                <li>Edit: <code>sudo nano /etc/pitrezor.config</code></li>
+                                <li>Check: <code>DISPLAY_TYPE="ILI9341"</code> matches your display</li>
+                                <li>Options: ILI9341, ILI9486, ADAFRUIT_PITFT</li>
+                            </ul>
+                        </li>
+                        <li><strong>Driver Not Compiled:</strong>
+                            <ul>
+                                <li>Check logs: <code>sudo journalctl -u pitrezor-display -n 50</code></li>
+                                <li>Look for build errors or timeouts</li>
+                                <li>Delete cache and rebuild: <code>sudo rm -rf /opt/fbcp-build && sudo systemctl restart pitrezor-display</code></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>Display Shows Garbled/Corrupted Image</h3>
+                <div class="step-box">
+                    <h4>Possible Causes & Solutions</h4>
+                    <ol>
+                        <li><strong>SPI Speed Too High:</strong>
+                            <ul>
+                                <li>Edit: <code>sudo nano /etc/pitrezor.config</code></li>
+                                <li>Increase divisor: <code>FBCP_SPI_SPEED_DIVISOR=40</code> (slower)</li>
+                                <li>Reboot and test. Increase further if issues persist</li>
+                            </ul>
+                        </li>
+                        <li><strong>Loose Wiring:</strong>
+                            <ul>
+                                <li>Disconnect power (pull USB)</li>
+                                <li>Check all SPI pins: CS, MOSI, SCK, DC</li>
+                                <li>Verify reset pin (GPIO 25) connection</li>
+                                <li>Look for loose wires touching each other</li>
+                                <li>Reconnect power and test</li>
+                            </ul>
+                        </li>
+                        <li><strong>Faulty Display Module:</strong>
+                            <ul>
+                                <li>If other fixes don't work, display module may be defective</li>
+                                <li>Try with a different ILI9341 display if available</li>
+                                <li>Return module to vendor for replacement</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>Buttons Not Responding</h3>
+                <div class="step-box">
+                    <h4>Possible Causes & Solutions</h4>
+                    <ol>
+                        <li><strong>Wiring Disconnected:</strong>
+                            <ul>
+                                <li>Verify YES button wire connects to GPIO 20 (pin 38)</li>
+                                <li>Verify NO button wire connects to GPIO 13 (pin 33)</li>
+                                <li>Check GND connection for buttons</li>
+                            </ul>
+                        </li>
+                        <li><strong>GPIO Button Input Test:</strong>
+                            <ul>
+                                <li>SSH to Pi: <code>ssh pi@[IP-ADDRESS]</code></li>
+                                <li>Test button input: <code>gpio readall</code> (if gpio utility installed)</li>
+                                <li>Press button and watch for state change</li>
+                            </ul>
+                        </li>
+                        <li><strong>Button Configuration:</strong>
+                            <ul>
+                                <li>Check button config: <code>cat /etc/pitrezor.config | grep BUTTON</code></li>
+                                <li>Ensure GPIO pins match your physical connections</li>
+                                <li>Verify button logic (active-high or active-low)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>WiFi Connection Issues</h3>
+                <div class="step-box">
+                    <h4>Possible Causes & Solutions</h4>
+                    <ol>
+                        <li><strong>Weak Signal:</strong>
+                            <ul>
+                                <li>Move Pi Zero W closer to WiFi router</li>
+                                <li>Reduce interference from other 2.4GHz devices</li>
+                                <li>Check WiFi SSID is visible and not hidden</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wrong Password:</strong>
+                            <ul>
+                                <li>Verify password entered matches exactly (case-sensitive)</li>
+                                <li>Redo WiFi setup: press YES → WiFi Configuration</li>
+                                <li>Clear network settings: <code>sudo rm /etc/wpa_supplicant/wpa_supplicant.conf</code></li>
+                            </ul>
+                        </li>
+                        <li><strong>Network Incompatible:</strong>
+                            <ul>
+                                <li>Pi Zero W only supports 2.4GHz WiFi (not 5GHz)</li>
+                                <li>Some enterprise networks may block device connections</li>
+                                <li>Try connecting to a different WiFi network</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>Performance Issues (Slow/Laggy)</h3>
+                <div class="step-box">
+                    <h4>Possible Causes & Solutions</h4>
+                    <ol>
+                        <li><strong>Check System Load:</strong>
+                            <ul>
+                                <li>SSH to Pi: <code>top</code> (shows CPU usage)</li>
+                                <li>Look for CPU-heavy processes</li>
+                                <li>Typical idle CPU: 40-50%</li>
+                            </ul>
+                        </li>
+                        <li><strong>Insufficient Power:</strong>
+                            <ul>
+                                <li>Display increases power draw significantly</li>
+                                <li>Use 5V 2.5A or better power supply</li>
+                                <li>Use quality USB cable (not cheap ones)</li>
+                                <li>Check voltage: <code>vcgencmd measure_volts</code> (should be 5.0V±0.1V)</li>
+                            </ul>
+                        </li>
+                        <li><strong>SD Card Performance:</strong>
+                            <ul>
+                                <li>First boot compiles drivers (slower initially)</li>
+                                <li>Subsequent boots should be faster (uses cache)</li>
+                                <li>If slow after 3rd boot, SD card may be defective</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>Diagnostic Tools</h3>
+                <p>Use included diagnostic scripts for detailed troubleshooting:</p>
+                <pre>
+# Comprehensive system diagnostics
+/opt/pitrezor/scripts/comprehensive-display-debug.sh
+
+# Hardware test (GPIO, backlight, buttons)
+/opt/pitrezor/scripts/hardware-test.sh
+
+# Check service status
+sudo systemctl status pitrezor-display
+
+# View service logs
+sudo journalctl -u pitrezor-display -n 100 --follow
+
+# Verify display driver compilation
+ls -la /opt/fbcp-build/
+
+# Check GPIO configuration
+cat /boot/config.txt | grep dtparam=spi
+                </pre>
+            </div>
+            
+            <!-- Support & Resources -->
+            <div class="section" id="support">
+                <h2>📚 Support & Resources</h2>
+                
+                <h3>Package Contents Reference</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>File/Folder</th>
+                            <th>Purpose</th>
+                            <th>When to Use</th>
+                        </tr>
+                        <tr>
+                            <td><code>pitrezor-raspberrypi0-wifi-universal.img</code></td>
+                            <td>Pre-built bootable image</td>
+                            <td>Flash to SD card directly</td>
+                        </tr>
+                        <tr>
+                            <td><code>source-files.zip</code></td>
+                            <td>Configuration & installation files</td>
+                            <td>Manual installation or customization</td>
+                        </tr>
+                        <tr>
+                            <td><code>source-code.zip</code></td>
+                            <td>Build scripts & source code</td>
+                            <td>Advanced compilation or modifications</td>
+                        </tr>
+                        <tr>
+                            <td><code>PROJECT-README.md</code></td>
+                            <td>Technical project overview</td>
+                            <td>Understanding project design</td>
+                        </tr>
+                        <tr>
+                            <td><code>INSTALLATION_GUIDE.html</code></td>
+                            <td>This guide</td>
+                            <td>Step-by-step setup instructions</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>Useful Commands</h3>
+                <pre>
+# SSH into your Pi Zero (replace with your IP)
+ssh pi@192.168.1.100
+
+# View system information
+uname -a
+cat /etc/os-release
+
+# Check PiTrezor service status
+sudo systemctl status pitrezor
+
+# View display service logs
+sudo journalctl -u pitrezor-display -n 50
+
+# Restart display service
+sudo systemctl restart pitrezor-display
+
+# Reboot the system
+sudo reboot
+
+# Power down safely
+sudo shutdown -h now
+
+# Monitor system resource usage
+top
+free -h
+df -h
+                </pre>
+                
+                <h3>Performance Specifications</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>First Boot</h4>
+                        <p><strong>Time:</strong> 2-5 minutes<br>
+                        <strong>Why:</strong> Compiles display driver<br>
+                        <strong>Network:</strong> No connectivity during setup</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Subsequent Boots</h4>
+                        <p><strong>Time:</strong> ~30 seconds<br>
+                        <strong>Why:</strong> Uses cached compiled driver<br>
+                        <strong>Network:</strong> Connects to WiFi automatically</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Display Performance</h4>
+                        <p><strong>FPS:</strong> 30-60 (typical)<br>
+                        <strong>Latency:</strong> <100ms button response<br>
+                        <strong>Quality:</strong> Full 240×320 color</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>System Resources</h4>
+                        <p><strong>RAM:</strong> 256-384 MB used<br>
+                        <strong>CPU:</strong> 40-80% (display driver)<br>
+                        <strong>Storage:</strong> 2-3 GB available</p>
+                    </div>
+                </div>
+                
+                <h3>Original Projects & Credits</h3>
+                <ul>
+                    <li><strong>PiTrezor:</strong> SatoshiLabs (Trezor Project) - Hardware wallet firmware</li>
+                    <li><strong>fbcp-ili9341:</strong> Jukka Jylänki (juj) - Display framebuffer driver</li>
+                    <li><strong>Raspberry Pi:</strong> Raspberry Pi Foundation - Hardware platform</li>
+                    <li><strong>This Integration:</strong> Custom development for PiTrezor + ILI9341 compatibility</li>
+                </ul>
+                
+                <h3>Additional Resources</h3>
+                <ul>
+                    <li><a href="https://github.com/trezor/trezor-firmware" target="_blank">Trezor Firmware GitHub</a> - Official firmware source</li>
+                    <li><a href="https://github.com/juj/fbcp-ili9341" target="_blank">fbcp-ili9341 GitHub</a> - Display driver project</li>
+                    <li><a href="https://www.raspberrypi.com/documentation/" target="_blank">Raspberry Pi Documentation</a> - Official Raspberry Pi docs</li>
+                    <li><a href="https://suite.trezor.io/" target="_blank">Trezor Suite</a> - Official wallet software</li>
+                    <li><a href="https://www.raspberrypi.com/software/" target="_blank">Raspberry Pi Imager</a> - Image flashing tool</li>
+                </ul>
+                
+                <h3>Getting Help</h3>
+                <div class="highlight">
+                    <strong>If you encounter issues:</strong>
+                    <ol>
+                        <li>Check the <a href="#troubleshooting">Troubleshooting Guide</a> above</li>
+                        <li>Run diagnostic scripts: <code>/opt/pitrezor/scripts/comprehensive-display-debug.sh</code></li>
+                        <li>Check service logs: <code>sudo journalctl -u pitrezor-display -n 100</code></li>
+                        <li>Verify hardware connections match <a href="#wiring">wiring guide</a></li>
+                        <li>Try the <a href="#configuration">configuration options</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>PiTrezor ILI9341 Display Integration</strong></p>
+            <p>Installation Guide & User Manual</p>
+            <p>Created: November 28, 2025 | Version 1.0</p>
+            <p>Complete solution for adding color displays to PiTrezor hardware wallets</p>
+        </footer>
+    </div>
+</body>
+</html>

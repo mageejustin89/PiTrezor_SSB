@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiTrezor - User Manual & Operating Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .highlight {
+            background-color: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        table th {
+            background-color: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .step-box {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .step-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .grid-item {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .grid-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .toc {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .button-guide {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .button-box {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+            text-align: center;
+        }
+        
+        .button-box h4 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .button-box .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .screen-flow {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0;
+        }
+        
+        .screen-flow strong {
+            color: #667eea;
+        }
+        
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+        
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .key {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .key:hover {
+            background: #f0f4ff;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .button-guide {
+                grid-template-columns: 1fr;
+            }
+            
+            .keyboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 PiTrezor Hardware Wallet</h1>
+            <p>User Manual & Operating Guide</p>
+        </header>
+        
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Device Overview</a></li>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#basic-operations">Basic Operations</a></li>
+                    <li><a href="#creating-wallet">Creating a Wallet</a></li>
+                    <li><a href="#sending-crypto">Sending Cryptocurrency</a></li>
+                    <li><a href="#receiving-crypto">Receiving Cryptocurrency</a></li>
+                    <li><a href="#security-features">Security Features</a></li>
+                    <li><a href="#display-navigation">Display Navigation</a></li>
+                    <li><a href="#common-tasks">Common Tasks</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                </ul>
+            </div>
+            
+            <!-- Overview Section -->
+            <div class="section" id="overview">
+                <h2>📱 Device Overview</h2>
+                
+                <p>PiTrezor is a hardware wallet running on a Raspberry Pi Zero W with an ILI9341 color display. It provides secure cryptocurrency storage and transaction management with an intuitive touchscreen interface.</p>
+                
+                <h3>Device Components</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>🖥️ Color Display</h4>
+                        <p>3.5-inch ILI9341 display showing wallet status, transactions, and seed phrases</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>🔘 Control Buttons</h4>
+                        <p>YES button (confirm) and NO button (cancel) for user input and menu navigation</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>📡 WiFi Connection</h4>
+                        <p>Built-in WiFi for Trezor Suite connectivity without USB cables</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>🔐 Secure Processor</h4>
+                        <p>Dedicated Trezor firmware runs on isolated system for maximum security</p>
+                    </div>
+                </div>
+                
+                <h3>Supported Cryptocurrencies</h3>
+                <p>PiTrezor supports hundreds of cryptocurrencies including:</p>
+                <ul>
+                    <li><strong>Bitcoin (BTC)</strong> - The original cryptocurrency</li>
+                    <li><strong>Ethereum (ETH)</strong> - Smart contract platform</li>
+                    <li><strong>Litecoin (LTC)</strong> - Bitcoin fork with faster blocks</li>
+                    <li><strong>Ripple (XRP)</strong> - Payment protocol</li>
+                    <li><strong>Dogecoin (DOGE)</strong> - Community coin</li>
+                    <li><strong>And 100+ more</strong> - Check Trezor Suite for full list</li>
+                </ul>
+            </div>
+            
+            <!-- Getting Started -->
+            <div class="section" id="getting-started">
+                <h2>🚀 Getting Started</h2>
+                
+                <h3>First Power-On</h3>
+                <div class="step-box">
+                    <h4>Initial Setup</h4>
+                    <ol>
+                        <li>Connect 5V USB power to the Pi Zero W</li>
+                        <li>Green LED will blink (indicates normal operation)</li>
+                        <li>Color display will show Trezor boot animation (1-2 minutes)</li>
+                        <li>Display shows "Welcome to Trezor" message</li>
+                        <li>Device is ready for initial configuration</li>
+                    </ol>
+                </div>
+                
+                <h3>WiFi Setup</h3>
+                <div class="step-box">
+                    <h4>Connecting to Your Network</h4>
+                    <ol>
+                        <li>Press <strong>YES button</strong> on the welcome screen</li>
+                        <li>Navigate to "WiFi Settings" using YES/NO buttons</li>
+                        <li>Device scans for available networks</li>
+                        <li>Select your network from the list (YES = select, NO = previous)</li>
+                        <li>Enter WiFi password using on-screen keyboard</li>
+                        <li>Press YES to connect</li>
+                        <li>Device will display connected IP address</li>
+                    </ol>
+                </div>
+                
+                <div class="highlight">
+                    <strong>💡 Tip:</strong> The IP address shown on the display is needed to connect with Trezor Suite on your computer.
+                </div>
+                
+                <h3>Connecting to Trezor Suite</h3>
+                <div class="step-box">
+                    <h4>Remote Wallet Connection</h4>
+                    <ol>
+                        <li>Download <a href="https://suite.trezor.io/" target="_blank">Trezor Suite</a> on your computer</li>
+                        <li>Open Trezor Suite application</li>
+                        <li>Click "Add Device" or "Connect Device"</li>
+                        <li>Select "Enter IP address" for network connection</li>
+                        <li>Enter the IP address shown on PiTrezor display</li>
+                        <li>Set port: <code>21325</code> (default)</li>
+                        <li>Click "Connect"</li>
+                        <li>Authorize connection on PiTrezor display (press YES)</li>
+                        <li>Trezor Suite is now connected to your device</li>
+                    </ol>
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Security Note:</strong> Only enter Trezor Suite PIN and passphrase on the PiTrezor device itself, never on your computer. This prevents keylogging attacks.
+                </div>
+            </div>
+            
+            <!-- Basic Operations -->
+            <div class="section" id="basic-operations">
+                <h2>⚙️ Basic Operations</h2>
+                
+                <h3>Button Functions</h3>
+                <div class="button-guide">
+                    <div class="button-box">
+                        <div class="icon">✅</div>
+                        <h4>KEY 2</h4>
+                        <p style="font-size: 0.9em; color: #999; margin-bottom: 10px;">(GPIO 20)</p>
+                        Confirms selections<br>
+                        Moves forward in menus<br>
+                        Accepts transactions</p>
+                    </div>
+                    <div class="button-box">
+                        <div class="icon">❌</div>
+                        <h4>JOYSTICK PRESS</h4>
+                        <p style="font-size: 0.9em; color: #999; margin-bottom: 10px;">(GPIO 13)</p>
+                        Cancels operations<br>
+                        Moves backward in menus<br>
+                        Returns to home screen</p>
+                    </div>
+                </div>
+                
+                <h3>Main Menu Navigation</h3>
+                <div class="screen-flow">
+                    <strong>HOME SCREEN</strong><br>
+                    Shows wallet status, balance (if synced), and connected accounts<br><br>
+                    <strong>↓ Press YES to Enter Menu</strong><br><br>
+                    <strong>MENU OPTIONS:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Accounts - View and manage cryptocurrency accounts</li>
+                        <li>Settings - Configure device options</li>
+                        <li>Tools - Access diagnostics and utilities</li>
+                        <li>Help - View documentation and guides</li>
+                    </ul>
+                </div>
+                
+                <h3>Display Information</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Display Section</th>
+                            <th>Information Shown</th>
+                        </tr>
+                        <tr>
+                            <td>Top Bar</td>
+                            <td>WiFi status, time, device status icons</td>
+                        </tr>
+                        <tr>
+                            <td>Main Area</td>
+                            <td>Current screen (home, menu, transaction details)</td>
+                        </tr>
+                        <tr>
+                            <td>Bottom Bar</td>
+                            <td>Available button actions (YES/NO labels)</td>
+                        </tr>
+                        <tr>
+                            <td>Status Indicators</td>
+                            <td>Connected/Disconnected, Syncing, Locked status</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Creating a Wallet -->
+            <div class="section" id="creating-wallet">
+                <h2>🔐 Creating a Wallet</h2>
+                
+                <div class="warning">
+                    <strong>⚠️ Critical Security Warning:</strong> Your seed phrase is the only backup for your wallet. Write it down on paper, store it securely, and NEVER show it to anyone or enter it into a computer. Anyone with your seed phrase can access all your funds.
+                </div>
+                
+                <h3>Generate New Wallet</h3>
+                <div class="step-box">
+                    <h4>Creating Your Recovery Seed</h4>
+                    <ol>
+                        <li>On home screen, press YES to enter menu</li>
+                        <li>Navigate to "Settings" using YES/NO buttons</li>
+                        <li>Select "Initialize Device"</li>
+                        <li>Choose "Generate New Seed"</li>
+                        <li>Select seed length: 12 words (recommended) or 24 words (maximum security)</li>
+                        <li>Device generates seed phrase</li>
+                        <li><strong>Write down all words in order on paper</strong></li>
+                        <li>Device will confirm you wrote down the seed (test random words)</li>
+                        <li>Set a PIN (4-8 digits) for device protection</li>
+                        <li>Create optional passphrase for additional security</li>
+                        <li>Wallet is now initialized and ready to use</li>
+                    </ol>
+                </div>
+                
+                <h3>Seed Phrase Safety</h3>
+                <div class="highlight">
+                    <strong>✅ DO:</strong>
+                    <ul>
+                        <li>Write seed phrase on paper with pen</li>
+                        <li>Store in a safe, secure location</li>
+                        <li>Keep multiple copies in different locations</li>
+                        <li>Consider waterproof/fireproof storage</li>
+                        <li>Memorize the seed (as backup to written copy)</li>
+                    </ul>
+                </div>
+                
+                <div class="error">
+                    <strong>❌ DON'T:</strong>
+                    <ul>
+                        <li>Never type seed into a computer</li>
+                        <li>Never take a photograph of the seed</li>
+                        <li>Never share seed with anyone</li>
+                        <li>Never store digitally (email, cloud, etc.)</li>
+                        <li>Never leave written seed unattended</li>
+                    </ul>
+                </div>
+                
+                <h3>PIN Protection</h3>
+                <p>Your PIN protects the device from unauthorized access. Choose a strong PIN:</p>
+                <ul>
+                    <li><strong>Minimum:</strong> 4 digits</li>
+                    <li><strong>Recommended:</strong> 8+ digits</li>
+                    <li><strong>Avoid:</strong> Sequential numbers (1234) or repeating digits (1111)</li>
+                    <li><strong>Security:</strong> Device erases after 3 failed attempts</li>
+                </ul>
+            </div>
+            
+            <!-- Sending Crypto -->
+            <div class="section" id="sending-crypto">
+                <h2>📤 Sending Cryptocurrency</h2>
+                
+                <h3>Prepare Your Transaction</h3>
+                <div class="step-box">
+                    <h4>Using Trezor Suite (Recommended)</h4>
+                    <ol>
+                        <li>Open Trezor Suite on your computer</li>
+                        <li>Select the cryptocurrency you want to send</li>
+                        <li>Click "Send" button</li>
+                        <li>Enter recipient address in the address field</li>
+                        <li>Enter amount to send</li>
+                        <li>Set transaction fee (fast/normal/slow)</li>
+                        <li>Review transaction details</li>
+                        <li>Click "Send" - this sends request to PiTrezor</li>
+                    </ol>
+                </div>
+                
+                <h3>Confirm on PiTrezor Device</h3>
+                <div class="step-box">
+                    <h4>On-Device Confirmation</h4>
+                    <ol>
+                        <li>PiTrezor display shows transaction details:
+                            <ul>
+                                <li>Receiving address</li>
+                                <li>Amount being sent</li>
+                                <li>Transaction fee</li>
+                                <li>Total cost</li>
+                            </ul>
+                        </li>
+                        <li>Carefully review all details match what you intended</li>
+                        <li>Verify recipient address matches (especially first and last characters)</li>
+                        <li>If correct, press YES button to confirm</li>
+                        <li>If wrong, press NO button to cancel</li>
+                        <li>Device signs transaction and broadcasts it</li>
+                        <li>Display shows "Transaction Sent" confirmation</li>
+                        <li>Trezor Suite shows confirmation on computer</li>
+                    </ol>
+                </div>
+                
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Once you confirm a transaction on PiTrezor, it cannot be cancelled. Always triple-check the recipient address and amount before pressing YES.
+                </div>
+                
+                <h3>Transaction States</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Status</th>
+                            <th>Meaning</th>
+                            <th>Action Needed</th>
+                        </tr>
+                        <tr>
+                            <td>Pending</td>
+                            <td>Transaction submitted to blockchain</td>
+                            <td>Wait for confirmation</td>
+                        </tr>
+                        <tr>
+                            <td>Confirming (1/X)</td>
+                            <td>Network is processing transaction</td>
+                            <td>Wait for more confirmations</td>
+                        </tr>
+                        <tr>
+                            <td>Confirmed</td>
+                            <td>Transaction is secure and final</td>
+                            <td>None - transaction complete</td>
+                        </tr>
+                        <tr>
+                            <td>Failed</td>
+                            <td>Transaction was rejected by network</td>
+                            <td>Check error message and retry</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Receiving Crypto -->
+            <div class="section" id="receiving-crypto">
+                <h2>📥 Receiving Cryptocurrency</h2>
+                
+                <h3>Generate Receive Address</h3>
+                <div class="step-box">
+                    <h4>Create Address for Receiving Funds</h4>
+                    <ol>
+                        <li>On home screen, press YES to open menu</li>
+                        <li>Navigate to "Accounts"</li>
+                        <li>Select the cryptocurrency you want to receive</li>
+                        <li>Select or create the account</li>
+                        <li>Press YES on "Generate Address" or "Show Address"</li>
+                        <li>Display shows QR code and address string</li>
+                    </ol>
+                </div>
+                
+                <h3>Share Address with Sender</h3>
+                <p>You can share your receive address in these ways:</p>
+                <ul>
+                    <li><strong>QR Code:</strong> Sender scans QR code with phone camera</li>
+                    <li><strong>Text Address:</strong> Copy and paste the address to sender</li>
+                    <li><strong>Display View:</strong> Show display to someone to scan</li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>💡 Important:</strong> Each time you request a new address, PiTrezor generates a unique address. This is normal and adds to privacy. All addresses receive funds to the same wallet.
+                </div>
+                
+                <h3>Verify Received Funds</h3>
+                <ol>
+                    <li>Wait for sender to confirm they sent funds</li>
+                    <li>Return to home screen - balance will update</li>
+                    <li>In Trezor Suite, you can see transaction details</li>
+                    <li>Transaction shows as "Pending" initially</li>
+                    <li>Wait for blockchain confirmations (varies by cryptocurrency)</li>
+                    <li>After sufficient confirmations, funds are secure</li>
+                </ol>
+            </div>
+            
+            <!-- Security Features -->
+            <div class="section" id="security-features">
+                <h2>🔒 Security Features</h2>
+                
+                <h3>Pin Protection</h3>
+                <p>Your PIN protects the device from physical theft. Features include:</p>
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>Unlock Requirement</h4>
+                        <p>PIN required every time device boots or wakes from sleep</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Attempt Limit</h4>
+                        <p>After 3 wrong PIN entries, device erases all data</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>No Backdoor</h4>
+                        <p>No way to recover device without PIN - not even manufacturers</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>On-Device Entry</h4>
+                        <p>PIN entered only on device display, never on computer</p>
+                    </div>
+                </div>
+                
+                <h3>Passphrase (Advanced)</h3>
+                <p>Optional additional security layer above PIN:</p>
+                <ul>
+                    <li><strong>What it does:</strong> Adds extra words to your seed phrase</li>
+                    <li><strong>Effect:</strong> Creates completely different wallet with same seed</li>
+                    <li><strong>Security:</strong> Protects against seed theft (thief gets wrong wallet)</li>
+                    <li><strong>Risk:</strong> If you forget passphrase, you can't recover wallet</li>
+                    <li><strong>Use case:</strong> Advanced users with multiple wallets</li>
+                </ul>
+                
+                <h3>Address Verification</h3>
+                <p>PiTrezor verifies addresses before signing transactions:</p>
+                <ul>
+                    <li>Device confirms each receive address is yours</li>
+                    <li>Display shows address for you to verify</li>
+                    <li>Protects against malware redirecting funds</li>
+                    <li>Always verify address matches between devices</li>
+                </ul>
+                
+                <h3>Air-Gapped Security</h3>
+                <p>Key security principle: Your private keys never leave the device</p>
+                <ul>
+                    <li>Private keys stored only in secure Trezor firmware</li>
+                    <li>Keys never sent to computer or network</li>
+                    <li>Only transaction approvals sent to network</li>
+                    <li>Effectively air-gapped while using WiFi (keys stay local)</li>
+                </ul>
+                
+                <h3>Recovery Scenarios</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Recovery Method</th>
+                        </tr>
+                        <tr>
+                            <td>Forgot PIN</td>
+                            <td>Device erases. Use seed phrase to recover on new device.</td>
+                        </tr>
+                        <tr>
+                            <td>Lost Device</td>
+                            <td>Use seed phrase to restore wallet on new Trezor device.</td>
+                        </tr>
+                        <tr>
+                            <td>Stolen Device</td>
+                            <td>PIN protects it. Move funds using new device + seed phrase.</td>
+                        </tr>
+                        <tr>
+                            <td>Corrupted System</td>
+                            <td>Reflash firmware. Use seed phrase to restore wallet.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Display Navigation -->
+            <div class="section" id="display-navigation">
+                <h2>🖥️ Display Navigation Guide</h2>
+                
+                <h3>Screen Layout</h3>
+                <div class="highlight">
+                    <pre>
+┌──────────────────────────────────────┐
+│ [WiFi] [Time] [Status]        [Lock] │  ← Status Bar
+├──────────────────────────────────────┤
+│                                      │
+│         MAIN CONTENT AREA            │
+│                                      │
+│      Shows menu, info, or            │
+│      transaction details             │
+│                                      │
+│                                      │
+├──────────────────────────────────────┤
+│ [YES: Select/OK]  [NO: Cancel/Back]  │  ← Button Guide
+└──────────────────────────────────────┘
+                    </pre>
+                </div>
+                
+                <h3>Common Screen Types</h3>
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>Home Screen</h4>
+                        <p>Shows wallet status, balance, and network info. Press YES for menu.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Menu Screen</h4>
+                        <p>List of options. Use YES/NO to scroll and select items.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Confirmation Screen</h4>
+                        <p>Asks for approval. YES confirms, NO cancels.</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Input Screen</h4>
+                        <p>Virtual keyboard for entering text or numbers.</p>
+                    </div>
+                </div>
+                
+                <h3>Navigation Patterns</h3>
+                <p><strong>Moving Through Menus:</strong></p>
+                <ul>
+                    <li>YES button: Move down/right or select highlighted item</li>
+                    <li>NO button: Move up/left or go back to previous menu</li>
+                    <li>Hold YES: Speed scroll through long lists</li>
+                    <li>Multiple YES/NO: Navigate through items</li>
+                </ul>
+                
+                <h3>Text Input</h3>
+                <p>For entering passwords, WiFi passwords, or addresses:</p>
+                <ol>
+                    <li>Display shows virtual keyboard</li>
+                    <li>Use YES/NO to highlight letters/numbers</li>
+                    <li>Press YES to select highlighted character</li>
+                    <li>Continue until all text entered</li>
+                    <li>Select "Done" or press back to finish</li>
+                </ol>
+            </div>
+            
+            <!-- Common Tasks -->
+            <div class="section" id="common-tasks">
+                <h2>📋 Common Tasks</h2>
+                
+                <h3>Check Your Balance</h3>
+                <div class="step-box">
+                    <h4>View Account Balance</h4>
+                    <ol>
+                        <li>Turn on device and unlock with PIN</li>
+                        <li>Home screen shows wallet balance (if WiFi synced)</li>
+                        <li>Press YES and go to "Accounts" for detailed breakdown</li>
+                        <li>Select cryptocurrency to see balance in that currency</li>
+                        <li>Press YES to see transaction history</li>
+                    </ol>
+                </div>
+                
+                <h3>Update Firmware</h3>
+                <div class="step-box">
+                    <h4>Keep Device Secure with Latest Firmware</h4>
+                    <ol>
+                        <li>Connect PiTrezor to WiFi</li>
+                        <li>Open Trezor Suite on your computer</li>
+                        <li>Trezor Suite checks for firmware updates</li>
+                        <li>If update available, click "Update Firmware"</li>
+                        <li>Follow on-screen instructions on both devices</li>
+                        <li>Device will restart after update completes</li>
+                        <li>Unlock with PIN to confirm update success</li>
+                    </ol>
+                </div>
+                
+                <h3>Backup Seed Phrase</h3>
+                <div class="step-box">
+                    <h4>Create Written Backup</h4>
+                    <ol>
+                        <li>Go to Settings menu (YES from home)</li>
+                        <li>Select "Backup Device"</li>
+                        <li>Device displays your recovery seed</li>
+                        <li>Write down ALL words in exact order on paper</li>
+                        <li>Include numbers next to each word (1/12, 2/12, etc.)</li>
+                        <li>Verify you wrote them correctly</li>
+                        <li>Store in secure location</li>
+                    </ol>
+                </div>
+                
+                <h3>Change PIN</h3>
+                <div class="step-box">
+                    <h4>Update Your Device PIN</h4>
+                    <ol>
+                        <li>Go to Settings menu</li>
+                        <li>Select "Change PIN"</li>
+                        <li>Enter current PIN to confirm</li>
+                        <li>Enter new PIN using on-screen keyboard</li>
+                        <li>Confirm new PIN by entering it again</li>
+                        <li>Press YES to save</li>
+                        <li>Next boot will require new PIN</li>
+                    </ol>
+                </div>
+                
+                <h3>Manage Multiple Accounts</h3>
+                <p>Create separate accounts for different purposes:</p>
+                <ol>
+                    <li>Go to Accounts menu</li>
+                    <li>Select cryptocurrency</li>
+                    <li>Press YES on "New Account"</li>
+                    <li>Name the account (e.g., "Savings", "Daily Use")</li>
+                    <li>Each account has separate addresses and balance</li>
+                    <li>All accounts backed by same seed phrase</li>
+                </ol>
+                
+                <h3>View Transaction History</h3>
+                <ol>
+                    <li>Go to Accounts menu</li>
+                    <li>Select the account to view</li>
+                    <li>Press YES on "Transactions"</li>
+                    <li>Scroll through past transactions with YES/NO</li>
+                    <li>Press YES on any transaction to see details</li>
+                    <li>Shows: amount, date, sender/receiver, status</li>
+                </ol>
+            </div>
+            
+            <!-- Troubleshooting -->
+            <div class="section" id="troubleshooting">
+                <h2>🐛 Troubleshooting</h2>
+                
+                <h3>Device Won't Turn On</h3>
+                <div class="step-box">
+                    <h4>No Display or LED Activity</h4>
+                    <ol>
+                        <li>Check power connection to USB port</li>
+                        <li>Try different USB cable (current one may be broken)</li>
+                        <li>Try different power adapter (should be 5V 2A minimum)</li>
+                        <li>Check if USB port is dirty - clean with dry cloth</li>
+                        <li>If LED still doesn't blink, device may need factory reset</li>
+                    </ol>
+                </div>
+                
+                <h3>Forgot PIN</h3>
+                <div class="step-box">
+                    <h4>Device Locked by PIN</h4>
+                    <ol>
+                        <li>After 3 wrong PIN attempts, device erases</li>
+                        <li>Recover wallet using your seed phrase on new device</li>
+                        <li>To recover on PiTrezor:
+                            <ul>
+                                <li>Choose "Restore from Seed" on new device</li>
+                                <li>Enter your 12 or 24 word seed phrase</li>
+                                <li>Set new PIN</li>
+                                <li>Wallet restored with all previous addresses</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>WiFi Won't Connect</h3>
+                <div class="step-box">
+                    <h4>Network Connection Issues</h4>
+                    <ol>
+                        <li>Check WiFi SSID is visible and broadcasted</li>
+                        <li>Verify WiFi password is correct (case-sensitive)</li>
+                        <li>Try connecting to 2.4GHz network (device doesn't support 5GHz)</li>
+                        <li>Move closer to WiFi router</li>
+                        <li>Check router isn't blocking device MAC address</li>
+                        <li>Restart router by unplugging for 30 seconds</li>
+                        <li>Redo WiFi setup on device: Settings > WiFi Configuration</li>
+                    </ol>
+                </div>
+                
+                <h3>Transaction Won't Send</h3>
+                <div class="step-box">
+                    <h4>Trezor Suite Shows Error</h4>
+                    <ol>
+                        <li>Check device is unlocked (PIN entered)</li>
+                        <li>Verify address is valid and correct format</li>
+                        <li>Check account has sufficient balance for amount + fee</li>
+                        <li>Try again with lower fee (slower but cheaper)</li>
+                        <li>Restart Trezor Suite</li>
+                        <li>Check if network connection is stable</li>
+                        <li>Try different cryptocurrency network</li>
+                    </ol>
+                </div>
+                
+                <h3>Display Showing Wrong Information</h3>
+                <div class="step-box">
+                    <h4>Balance or Transaction Incorrect</h4>
+                    <ol>
+                        <li>Device balance syncs from blockchain (takes time)</li>
+                        <li>First time may take several minutes to sync</li>
+                        <li>Try manually refreshing in Trezor Suite</li>
+                        <li>Check if transaction is pending (not confirmed yet)</li>
+                        <li>Verify you're looking at correct account/cryptocurrency</li>
+                        <li>Restart device (unplug and replug USB)</li>
+                    </ol>
+                </div>
+                
+                <h3>Device Freezes or Unresponsive</h3>
+                <div class="step-box">
+                    <h4>Button Presses Not Responding</h4>
+                    <ol>
+                        <li>Device may be processing (wait 30 seconds)</li>
+                        <li>Try pressing button again</li>
+                        <li>Unplug USB power and wait 10 seconds</li>
+                        <li>Reconnect USB power</li>
+                        <li>Device will reboot and show home screen</li>
+                        <li>Unlock with PIN</li>
+                        <li>If persistent, may need firmware reflash</li>
+                    </ol>
+                </div>
+                
+                <h3>Can't Connect to Trezor Suite</h3>
+                <div class="step-box">
+                    <h4>Remote Connection Issues</h4>
+                    <ol>
+                        <li>Verify PiTrezor is connected to WiFi
+                            <ul>
+                                <li>Check IP address showing on display</li>
+                                <li>If no IP shown, WiFi not connected</li>
+                            </ul>
+                        </li>
+                        <li>On computer, verify network can reach Pi
+                            <ul>
+                                <li>Windows: ping [IP-ADDRESS] in Command Prompt</li>
+                                <li>Mac/Linux: ping [IP-ADDRESS] in Terminal</li>
+                            </ul>
+                        </li>
+                        <li>Verify port 21325 is open on router</li>
+                        <li>Restart Trezor Suite application</li>
+                        <li>Try connecting with new IP address entry</li>
+                        <li>Check firewall settings on computer</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Safety Reminders -->
+            <div class="section">
+                <h2>⚠️ Safety Reminders</h2>
+                
+                <div class="warning">
+                    <strong>Always Remember:</strong>
+                    <ul>
+                        <li><strong>Seed Phrase:</strong> Is the only way to recover your wallet. Write it down and store securely offline.</li>
+                        <li><strong>PIN:</strong> Protects your device. Choose strong PIN and don't share with anyone.</li>
+                        <li><strong>Transactions:</strong> Are final and cannot be reversed. Always verify address and amount before confirming.</li>
+                        <li><strong>Computer:</strong> Only used for display and address entry. All approvals on device itself.</li>
+                        <li><strong>Updates:</strong> Keep firmware updated for latest security patches.</li>
+                        <li><strong>Backups:</strong> Keep multiple copies of seed phrase in different locations.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>PiTrezor Hardware Wallet</strong></p>
+            <p>User Manual & Operating Guide</p>
+            <p>Created: November 28, 2025 | Version 1.0</p>
+            <p>For secure cryptocurrency storage and transaction management</p>
+        </footer>
+    </div>
+</body>
+</html>
